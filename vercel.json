@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/6-figure-channel-launchpad.html" }
+  ]
+}
