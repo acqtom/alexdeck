@@ -498,11 +498,11 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
         <div class="pcard hot">
           <div class="head">
             <span class="cap-badge mono">FIRST 5 SPOTS</span>
-            <div class="priceline"><span class="p">$4,000</span><span class="per">paid in full</span></div>
+            <div class="priceline"><span class="p" id="priceFull">$4,000</span><span class="per">paid in full</span></div>
             <div class="divide"></div>
-            <div class="priceline"><span class="p">$667</span><span class="per">/mo · 6 payments</span></div>
+            <div class="priceline"><span class="p" id="price6">$667</span><span class="per">/mo · 6 payments</span></div>
             <div class="divide"></div>
-            <div class="priceline"><span class="p">$333</span><span class="per">/mo · 12 payments</span></div>
+            <div class="priceline"><span class="p" id="price12">$333</span><span class="per">/mo · 12 payments</span></div>
             <div class="drop" id="dropBonusText">Plus both masterclass bonuses.</div>
           </div>
           <div class="feat"><span class="fk">Winning niche &amp; channel, done for you</span><span class="fv">Included</span></div>
@@ -512,7 +512,6 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
           <div class="feat"><span class="fk">3-month paid-or-free guarantee</span><span class="fv">Included</span></div>
         </div>
       </div>
-      <p class="sub" style="grid-column:1/-1;margin-top:.4rem;max-width:none;color:var(--muted-2)">Want it fully hands-off? Add a proven editor placed into your channel for a one-time <b style="color:var(--ink)">+$5,000</b> — you just manage it.</p>
     </div>
   </section>
 
@@ -528,8 +527,8 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
           <span class="t"><span id="tm">36</span>M</span>
           <span class="t"><span id="ts">54</span>S</span>
         </div>
-        <div class="priceHero"><span class="p">$333</span><span class="per">/ month · 12 payments</span></div>
-        <div class="sub" style="font-size:.95rem">Or 6 payments of $667 · or $4,000 paid in full — first-5 rate</div>
+        <div class="priceHero"><span class="p" id="priceHeroAmt">$333</span><span class="per">/ month · 12 payments</span></div>
+        <div class="sub" style="font-size:.95rem" id="enrolSub">Or 6 payments of $667 · or $4,000 paid in full — first-5 rate</div>
         <button class="btn-cta">Enrol now →</button>
       </div>
       <div>
@@ -601,6 +600,19 @@ Object.keys(ORGANIC_TEXT).forEach(function(id){
   if(el) WEBINAR_TEXT[id]=el.textContent;
 });
 
+const WEBINAR_PRICE_TEXT={
+  priceFull:'$5,000',
+  price6:'$833',
+  price12:'$417',
+  priceHeroAmt:'$417',
+  enrolSub:'Or 6 payments of $833 · or $5,000 paid in full — first-5 rate'
+};
+const ORGANIC_PRICE_TEXT={};
+Object.keys(WEBINAR_PRICE_TEXT).forEach(function(id){
+  const el=document.getElementById(id);
+  if(el) ORGANIC_PRICE_TEXT[id]=el.textContent;
+});
+
 const params=new URLSearchParams(location.search);
 let mode=params.get('mode')==='organic' ? 'organic' : (params.get('mode')==='webinar' ? 'webinar' : (localStorage.getItem('deckMode')||'webinar'));
 
@@ -613,6 +625,11 @@ function applyModeText(){
     const el=document.getElementById(id);
     if(!el) return;
     el.textContent = mode==='organic' ? ORGANIC_TEXT[id] : WEBINAR_TEXT[id];
+  });
+  Object.keys(WEBINAR_PRICE_TEXT).forEach(function(id){
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.textContent = mode==='webinar' ? WEBINAR_PRICE_TEXT[id] : ORGANIC_PRICE_TEXT[id];
   });
 }
 
