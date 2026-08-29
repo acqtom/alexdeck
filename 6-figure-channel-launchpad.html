@@ -203,7 +203,11 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
 .overlay{position:fixed;inset:0;z-index:60;background:rgba(252,246,214,.97);backdrop-filter:blur(8px);display:flex;flex-direction:column;padding:6.5rem var(--pad-x) 3rem;opacity:0;visibility:hidden;transition:.35s}
 .overlay.open{opacity:1;visibility:visible}
 .overlay .oclose{position:absolute;top:1.7rem;right:var(--pad-x);background:transparent;border:1px solid var(--line-strong);color:var(--ink-dim);width:40px;height:40px;border-radius:8px;cursor:pointer;font-size:1.1rem}
-.overlay .otitle{color:var(--accent);font-size:.72rem;margin-bottom:2rem}
+.overlay .otitle{color:var(--accent);font-size:.72rem;margin-bottom:0}
+.modeToggle{display:flex;gap:.6rem;max-width:1200px;width:100%;margin:1.4rem auto 2rem}
+.modeBtn{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);background:rgba(255,255,255,.4);border:1px solid var(--line-strong);border-radius:40px;padding:.55rem 1.2rem;cursor:pointer;transition:.2s}
+.modeBtn:hover{border-color:var(--accent);color:var(--accent)}
+.modeBtn.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .olist{overflow-y:auto;max-width:1200px;width:100%;margin:0 auto}
 .oitem{display:grid;grid-template-columns:60px 1fr auto;gap:1.5rem;align-items:center;padding:1.05rem 0;border-top:1px solid var(--line);cursor:pointer;transition:.2s}
 .oitem:last-child{border-bottom:1px solid var(--line)}
@@ -319,7 +323,7 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
   <!-- 5 -->
   <section class="slide" id="s5" data-label="HOW IT PAYS">
     <div class="wrap">
-      <div class="eyebrow dash mono">WHAT YOU LEARNED TONIGHT</div>
+      <div class="eyebrow dash mono" id="tonightEyebrow">WHAT YOU LEARNED TONIGHT</div>
       <h2 class="display">How faceless Shorts actually pays.</h2>
       <div class="cols3">
         <div class="pathcol"><div class="tag mono">PHASE 01</div><h3>YouTube's Pay System</h3><p>You post → YouTube runs ads on your videos → you get a cut of the ad revenue. The move is engineering views <b style="color:var(--ink)">and</b> retention at the same time — not hoping for one lucky viral hit.</p></div>
@@ -477,7 +481,7 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
       <div>
         <div class="eyebrow dash mono">ALEX RUNS THIS PERSONALLY</div>
         <h2 class="display">Your investment.</h2>
-        <p class="sub" style="margin-top:1.8rem">A handful of spots open at a time — and the bonuses are limited to the first 5 people from tonight's masterclass.</p>
+        <p class="sub" style="margin-top:1.8rem" id="investSub">A handful of spots open at a time — and the bonuses are limited to the first 5 people from tonight's masterclass.</p>
       </div>
       <div class="pricewrap">
         <div class="pcard">
@@ -499,7 +503,7 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
             <div class="priceline"><span class="p">$667</span><span class="per">/mo · 6 payments</span></div>
             <div class="divide"></div>
             <div class="priceline"><span class="p">$333</span><span class="per">/mo · 12 payments</span></div>
-            <div class="drop">Plus both masterclass bonuses.</div>
+            <div class="drop" id="dropBonusText">Plus both masterclass bonuses.</div>
           </div>
           <div class="feat"><span class="fk">Winning niche &amp; channel, done for you</span><span class="fv">Included</span></div>
           <div class="feat"><span class="fk">100 winning YouTube Shorts</span><span class="fv">Included</span></div>
@@ -573,42 +577,55 @@ h2.display{font-weight:800;line-height:.98;letter-spacing:-.03em;font-size:clamp
 <div class="overlay" id="overlay">
   <button class="oclose" id="closeContents" aria-label="Close">✕</button>
   <div class="otitle mono">CONTENTS · 6-FIGURE CHANNEL LAUNCHPAD</div>
+  <div class="modeToggle" id="modeToggle" role="group" aria-label="Deck version">
+    <button class="modeBtn" type="button" data-mode="webinar">Webinar</button>
+    <button class="modeBtn" type="button" data-mode="organic">Organic</button>
+  </div>
   <div class="olist" id="olist"></div>
 </div>
 
 <script>
 const deck=document.getElementById('deck');
-const slides=[...deck.querySelectorAll('.slide')];
-const total=slides.length;
-document.getElementById('cTot').textContent=total;
+const allSlides=[...deck.querySelectorAll('.slide')];
+const allTitles=['Cover','Meet Alex','What This Is','Who This Is For','How It Pays','What\u2019s Inside','Program Milestones','Accountability & Support','Webinar Bonuses','The Guarantee','Choose Your Path','Student Results','Investment','Enrol Now'];
 
-const titles=['Cover','Meet Alex','What This Is','Who This Is For','How It Pays','What\u2019s Inside','Program Milestones','Accountability & Support','Webinar Bonuses','The Guarantee','Choose Your Path','Student Results','Investment','Enrol Now'];
+const ORGANIC_HIDE_IDS=['s9'];
+const ORGANIC_TEXT={
+  tonightEyebrow:'THE CORE MECHANICS',
+  investSub:'A handful of spots open at a time \u2014 and the bonuses are limited to the first 5 people who join this week.',
+  dropBonusText:'Plus both fast-action bonuses.'
+};
+const WEBINAR_TEXT={};
+Object.keys(ORGANIC_TEXT).forEach(function(id){
+  const el=document.getElementById(id);
+  if(el) WEBINAR_TEXT[id]=el.textContent;
+});
 
-let current=0;
+const params=new URLSearchParams(location.search);
+let mode=params.get('mode')==='organic' ? 'organic' : (params.get('mode')==='webinar' ? 'webinar' : (localStorage.getItem('deckMode')||'webinar'));
 
 const dotsWrap=document.getElementById('dots');
-slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Go to '+titles[i]);b.addEventListener('click',()=>goTo(i));dotsWrap.appendChild(b);});
-const dots=[...dotsWrap.children];
-
 const olist=document.getElementById('olist');
-slides.forEach((s,i)=>{
-  const row=document.createElement('div');
-  row.className='oitem';
-  row.innerHTML='<span class="oi">'+String(i+1).padStart(2,'0')+'</span><span class="ot">'+titles[i]+'</span><span class="ol">'+(s.dataset.label||'')+'</span>';
-  row.addEventListener('click',()=>{closeOverlay();goTo(i);});
-  olist.appendChild(row);
-});
+let slides=[],titles=[],dots=[],total=0,current=0,animating=false;
+
+function applyModeText(){
+  Object.keys(ORGANIC_TEXT).forEach(function(id){
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.textContent = mode==='organic' ? ORGANIC_TEXT[id] : WEBINAR_TEXT[id];
+  });
+}
 
 function setActive(i){
   document.getElementById('cNow').textContent=String(i+1).padStart(2,'0');
   document.getElementById('secLabel').textContent=slides[i].dataset.label||'';
-  document.getElementById('footRight').textContent = i===0 ? 'FACELESS YOUTUBE · WITH ALEX' : 'CHANNELLAUNCHPAD.COM';
-  document.getElementById('footLeft').textContent = i===0 ? '6-FIGURE CHANNEL LAUNCHPAD · WITH ALEX' : '6-FIGURE CHANNEL LAUNCHPAD';
+  document.getElementById('footRight').textContent = i===0 ? 'FACELESS YOUTUBE \u00b7 WITH ALEX' : 'CHANNELLAUNCHPAD.COM';
+  document.getElementById('footLeft').textContent = i===0 ? '6-FIGURE CHANNEL LAUNCHPAD \u00b7 WITH ALEX' : '6-FIGURE CHANNEL LAUNCHPAD';
   dots.forEach((d,di)=>d.classList.toggle('on',di===i));
 }
 
 function render(){slides.forEach((s,i)=>{s.style.transform='translateY('+((i-current)*100)+'%)';});}
-let animating=false;
+
 function goTo(i){
   i=Math.max(0,Math.min(total-1,i));
   if(i===current) return;
@@ -617,9 +634,62 @@ function goTo(i){
   window.__anim=setTimeout(function(){animating=false;},740);
 }
 
-deck.classList.add('no-anim');
-current=0;render();setActive(0);
-requestAnimationFrame(function(){requestAnimationFrame(function(){deck.classList.remove('no-anim');});});
+function rebuild(){
+  const keepId=slides[current]?slides[current].id:null;
+
+  allSlides.forEach(function(s){
+    const hide=mode==='organic' && ORGANIC_HIDE_IDS.indexOf(s.id)!==-1;
+    s.style.display=hide?'none':'';
+  });
+
+  slides=allSlides.filter(function(s){return s.style.display!=='none';});
+  titles=allTitles.filter(function(t,i){return slides.indexOf(allSlides[i])!==-1;});
+  total=slides.length;
+  document.getElementById('cTot').textContent=total;
+
+  dotsWrap.innerHTML='';
+  slides.forEach(function(s,i){
+    const b=document.createElement('button');
+    b.setAttribute('aria-label','Go to '+titles[i]);
+    b.addEventListener('click',function(){goTo(i);});
+    dotsWrap.appendChild(b);
+  });
+  dots=[...dotsWrap.children];
+
+  olist.innerHTML='';
+  slides.forEach(function(s,i){
+    const row=document.createElement('div');
+    row.className='oitem';
+    row.innerHTML='<span class="oi">'+String(i+1).padStart(2,'0')+'</span><span class="ot">'+titles[i]+'</span><span class="ol">'+(s.dataset.label||'')+'</span>';
+    row.addEventListener('click',function(){closeOverlay();goTo(i);});
+    olist.appendChild(row);
+  });
+
+  let newIndex=0;
+  if(keepId){
+    const found=slides.findIndex(function(s){return s.id===keepId;});
+    if(found>=0) newIndex=found;
+  }
+  current=newIndex;
+
+  deck.classList.add('no-anim');
+  render();
+  setActive(current);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){deck.classList.remove('no-anim');});});
+}
+
+function setMode(newMode){
+  mode=newMode==='organic'?'organic':'webinar';
+  localStorage.setItem('deckMode',mode);
+  document.querySelectorAll('.modeBtn').forEach(function(b){b.classList.toggle('on',b.dataset.mode===mode);});
+  applyModeText();
+  rebuild();
+}
+
+document.querySelectorAll('.modeBtn').forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode);});});
+document.querySelectorAll('.modeBtn').forEach(function(b){b.classList.toggle('on',b.dataset.mode===mode);});
+applyModeText();
+rebuild();
 
 function canScrollInside(dir){
   const s=slides[current];
