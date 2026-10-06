@@ -270,6 +270,22 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
 #s7 .mile li{font-size:.8rem}
 @media (max-width:900px){#s7 .milegrid{grid-template-columns:1fr 1fr}#s7 .mile{padding-left:1rem}}
 @media (max-width:560px){#s7 .milegrid{grid-template-columns:1fr}}
+.proof-head{font-size:clamp(1.8rem,3.6vw,3.1rem);font-weight:700;color:var(--muted);line-height:1.3;letter-spacing:-.01em;max-width:34ch}
+.proof-head .hl-w{color:#fff;font-weight:800}
+.proof-head mark{background:#2f63ff;color:#fff;padding:.02em .22em;border-radius:6px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.tc-wrap{margin-top:2.2rem}
+.tcar{display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:.2rem}
+.tcar::-webkit-scrollbar{display:none}
+.tcar{max-width:100%}
+.tcar>.proofcard{flex:0 0 clamp(250px,27vw,340px);scroll-snap-align:start;margin-bottom:0;border-radius:14px}
+.tcar>.proofcard img{height:270px;object-fit:cover;object-position:top}
+.tc-wrap{min-width:0;max-width:100%}
+.tc-bar-row{display:flex;align-items:center;gap:.9rem;margin-top:1.3rem;max-width:920px}
+.tc-track{flex:1;height:3px;background:rgba(255,255,255,.14);border-radius:3px;position:relative;overflow:hidden}
+.tc-thumb{position:absolute;top:0;left:0;height:100%;width:20%;background:#fff;border-radius:3px}
+.tc-count{color:var(--muted);font-size:.7rem;min-width:3.6rem;text-align:right}
+.tc-btn{width:38px;height:32px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--line-strong);color:var(--ink-dim);cursor:pointer;font-size:1.2rem;line-height:1;transition:.2s}
+.tc-btn:hover{border-color:var(--accent);color:var(--accent)}
 .proofintro{color:var(--muted);max-width:62ch;margin-top:.8rem;font-size:.98rem;line-height:1.5}
 .proofmasonry{column-count:4;column-gap:.8rem;margin-top:1.3rem}
 .proofcard{break-inside:avoid;margin-bottom:.8rem;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0e0e10;box-shadow:0 6px 18px rgba(0,0,0,.08)}
@@ -316,6 +332,22 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
       <span class="badge-pill mono">THE 6-FIGURE CHANNEL LAUNCHPAD</span>
       <h1 class="display grad">We'll Help You Get Monetized And Scale A Profitable YouTube Shorts Channel In The Next 90 Days, Without Recording Content Yourself Or Editing For More Than 1Hr/Day</h1>
       <ul class="ticks"><li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Niche Selection</li><li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>High-Retention Editing</li><li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Content Workflows</li><li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>YouTube Partner Program Acceptance</li><li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Scaling To Multiple Channels</li><li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>1-on-1 Coaching</li></ul>
+    </div>
+  </section>
+
+  <!-- proof -->
+  <section class="slide" id="sProof" data-label="STUDENT PROOF">
+    <div class="wrap">
+      <h2 class="proof-head">The system <span class="hl-w">100+ faceless creators</span> used to get <mark>monetized in as little as 45 days</mark></h2>
+      <div class="tc-wrap">
+        <div class="tcar" id="tcar"></div>
+        <div class="tc-bar-row">
+          <div class="tc-track"><div class="tc-thumb" id="tcBar"></div></div>
+          <span class="tc-count mono" id="tcCount">1 / 1</span>
+          <button class="tc-btn" id="tcPrev" type="button" aria-label="Previous result">&#8249;</button>
+          <button class="tc-btn" id="tcNext" type="button" aria-label="Next result">&#8250;</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -673,7 +705,7 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
 <script>
 const deck=document.getElementById('deck');
 const allSlides=[...deck.querySelectorAll('.slide')];
-const allTitles=['Cover','Meet Alex','What This Is','Who This Is For','How It Pays','What\u2019s Inside','Program Milestones','Accountability & Support','Refund Guarantee','Choose Your Path','Student Results','More Results','Investment','Enrol Now'];
+const allTitles=['Cover','Student Proof','Meet Alex','What This Is','Who This Is For','How It Pays','What\u2019s Inside','Program Milestones','Accountability & Support','Refund Guarantee','Choose Your Path','Student Results','More Results','Investment','Enrol Now'];
 
 const ORGANIC_TEXT={
   tonightEyebrow:'THE CORE MECHANICS'
@@ -834,6 +866,29 @@ document.getElementById('openContents').addEventListener('click',openOverlay);
 document.getElementById('closeContents').addEventListener('click',closeOverlay);
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeOverlay();});
 
+(function(){
+  const car=document.getElementById('tcar');
+  if(!car) return;
+  document.querySelectorAll('section[data-label="STUDENT RESULTS"] .proofcard, section[data-label="MORE RESULTS"] .proofcard')
+    .forEach(function(f){car.appendChild(f.cloneNode(true));});
+  const cards=[...car.children], total=cards.length;
+  const bar=document.getElementById('tcBar'), cnt=document.getElementById('tcCount');
+  const step=function(){return cards.length>1 ? cards[1].offsetLeft-cards[0].offsetLeft : car.clientWidth;};
+  function update(){
+    const max=car.scrollWidth-car.clientWidth;
+    const vis=car.scrollWidth ? car.clientWidth/car.scrollWidth : 1;
+    const frac=max>0 ? car.scrollLeft/max : 0;
+    bar.style.width=(vis*100)+'%';
+    bar.style.left=(frac*(100-vis*100))+'%';
+    const s=step();
+    cnt.textContent=Math.min(s>0 ? Math.round(car.scrollLeft/s)+1 : 1,total)+' / '+total;
+  }
+  car.addEventListener('scroll',update,{passive:true});
+  document.getElementById('tcPrev').addEventListener('click',function(){car.scrollBy({left:-step(),behavior:'smooth'});});
+  document.getElementById('tcNext').addEventListener('click',function(){car.scrollBy({left:step(),behavior:'smooth'});});
+  ['wheel','touchstart','touchmove','touchend'].forEach(function(ev){car.addEventListener(ev,function(e){e.stopPropagation();},{passive:true});});
+  update();
+})();
 (function(){
   let target=Date.now()+((1*24*3600)+(22*3600)+(36*60)+54)*1000;
   const d=document.getElementById('td'),h=document.getElementById('th'),m=document.getElementById('tm'),s=document.getElementById('ts');
