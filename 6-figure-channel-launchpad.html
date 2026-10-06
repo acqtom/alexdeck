@@ -869,7 +869,7 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeOverlay();});
 (function(){
   const car=document.getElementById('tcar');
   if(!car) return;
-  document.querySelectorAll('section[data-label="STUDENT RESULTS"] .proofcard, section[data-label="MORE RESULTS"] .proofcard')
+  document.querySelectorAll('section[data-label="STUDENT RESULTS"] .proofcard')
     .forEach(function(f){car.appendChild(f.cloneNode(true));});
   const cards=[...car.children], total=cards.length;
   const bar=document.getElementById('tcBar'), cnt=document.getElementById('tcCount');
