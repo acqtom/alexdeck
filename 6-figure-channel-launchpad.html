@@ -277,9 +277,9 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
 .tcar{display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:.2rem}
 .tcar::-webkit-scrollbar{display:none}
 .tcar{max-width:100%}
-.tcar>.proofcard{flex:0 0 clamp(250px,27vw,340px);scroll-snap-align:start;margin-bottom:0;border-radius:14px}
-.tcar>.proofcard img{height:270px;object-fit:cover;object-position:top}
-.tc-wrap{min-width:0;max-width:100%}
+.tcar>.proofcard{flex:0 0 calc((100% - 1.1rem) / 2);scroll-snap-align:start;margin-bottom:0;border-radius:14px}
+.tcar>.proofcard img{height:340px;width:100%;object-fit:contain;background:#0e0e10}
+.tc-wrap{min-width:0;max-width:min(100%,1040px)}
 .tc-bar-row{display:flex;align-items:center;gap:.9rem;margin-top:1.3rem;max-width:920px}
 .tc-track{flex:1;height:3px;background:rgba(255,255,255,.14);border-radius:3px;position:relative;overflow:hidden}
 .tc-thumb{position:absolute;top:0;left:0;height:100%;width:20%;background:#fff;border-radius:3px}
@@ -873,7 +873,7 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeOverlay();});
     .forEach(function(f){car.appendChild(f.cloneNode(true));});
   const cards=[...car.children], total=cards.length;
   const bar=document.getElementById('tcBar'), cnt=document.getElementById('tcCount');
-  const step=function(){return cards.length>1 ? cards[1].offsetLeft-cards[0].offsetLeft : car.clientWidth;};
+  const step=function(){return cards.length>2 ? cards[2].offsetLeft-cards[0].offsetLeft : car.clientWidth;};
   function update(){
     const max=car.scrollWidth-car.clientWidth;
     const vis=car.scrollWidth ? car.clientWidth/car.scrollWidth : 1;
@@ -881,7 +881,9 @@ overlay.addEventListener('click',e=>{if(e.target===overlay)closeOverlay();});
     bar.style.width=(vis*100)+'%';
     bar.style.left=(frac*(100-vis*100))+'%';
     const s=step();
-    cnt.textContent=Math.min(s>0 ? Math.round(car.scrollLeft/s)+1 : 1,total)+' / '+total;
+    const first=s>0 ? Math.round(car.scrollLeft/s)*2+1 : 1;
+    const second=Math.min(first+1,total);
+    cnt.textContent=(second>first ? first+'–'+second : first)+' / '+total;
   }
   car.addEventListener('scroll',update,{passive:true});
   document.getElementById('tcPrev').addEventListener('click',function(){car.scrollBy({left:-step(),behavior:'smooth'});});
