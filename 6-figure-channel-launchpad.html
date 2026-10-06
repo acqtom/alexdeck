@@ -304,6 +304,9 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
 .ph-day{color:var(--accent);font-size:.66rem;letter-spacing:.2em;margin-top:1.4rem}
 .ph-list .ulist{margin-top:.5rem;gap:.5rem}
 .ph-list li b{color:var(--ink)}
+.who-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;margin-top:2.4rem}
+.who-cards .stackcard .body{margin-top:.6rem}
+@media (max-width:900px){.who-cards{grid-template-columns:1fr}}
 .proofintro{color:var(--muted);max-width:62ch;margin-top:.8rem;font-size:.98rem;line-height:1.5}
 .proofmasonry{column-count:4;column-gap:.8rem;margin-top:1.3rem}
 .proofcard{break-inside:avoid;margin-bottom:.8rem;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0e0e10;box-shadow:0 6px 18px rgba(0,0,0,.08)}
@@ -471,18 +474,41 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
     </div>
   </section>
 
-  <!-- 4 -->
+  <!-- who -->
   <section class="slide" id="s4" data-label="WHO THIS IS FOR">
     <div class="wrap">
       <div class="eyebrow dash mono">BUILT FOR REGULAR PEOPLE</div>
-      <h2 class="display">You don't need to be a creator.</h2>
-      <div class="rows">
-        <div class="row"><div class="idx">01</div><h3>Around your 9–5</h3><p>We build the channel and hand you the content — a few minutes a day to run it. Students, retail workers, people stuck in the rat race — this fits around the job you already have.</p></div>
-        <div class="row"><div class="idx">02</div><h3>Zero experience</h3><p>No business, no marketing, no following, no editing skills required — we pick your niche, build your channel, and can even place a proven editor so it's fully hands-off.</p></div>
-        <div class="row"><div class="idx">03</div><h3>You want it to actually happen</h3><p>You're done watching free videos and staying in the same spot. You want it built for you, with a guarantee behind it.</p></div>
+      <h2 class="display">You don't need to be a full time creator genius.</h2>
+      <p class="sub" style="margin-top:1.4rem;max-width:62ch">We created this for the average joe. These are our typical students' lives when they start making income with YouTube Automation.</p>
+      <div class="who-cards">
+        <div class="stackcard">
+          <div class="sc-n">01</div>
+          <h3>Around your 9–5</h3>
+          <p class="body">Most students love the convenience of YouTube Automation. They spend an hour after work editing and uploading a video, and still have time to make dinner, spend time with kids, go to the gym, see a friend, or watch their favourite show.</p>
+        </div>
+        <div class="stackcard">
+          <div class="sc-n">02</div>
+          <h3>More time and location freedom</h3>
+          <p class="body">They take their family out to nicer dinners, upgrade that yearly holiday, provide more for those around them, or buy a Rolex if they like.</p>
+        </div>
+        <div class="stackcard">
+          <div class="sc-n">03</div>
+          <h3>They feel accomplished</h3>
+          <p class="body">They were feeling capped with their income and knew they could do more. Now they feel proud of themselves for taking the leap and finally making it happen. Most students say they wish they had got started sooner.</p>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- can you see yourself -->
+  <section class="slide" id="sSee" data-label="CAN YOU SEE YOURSELF">
+    <div class="wrap">
+      <div class="eyebrow dash mono">BEFORE WE CONTINUE</div>
+      <h2 class="display">Is this something you can see yourself doing?</h2>
+      <p class="sub" style="margin-top:1.6rem;max-width:52ch">Any questions before we continue?</p>
+    </div>
+  </section>
+
 
   <!-- 5 -->
   <section class="slide" id="s5" data-label="HOW IT PAYS">
@@ -731,7 +757,7 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
 <script>
 const deck=document.getElementById('deck');
 const allSlides=[...deck.querySelectorAll('.slide')];
-const allTitles=['Cover','The Mission','Student Proof','Program Milestones','Today - Month 2','Month 2 - Month 4','Month 4 - Month 6','Who This Is For','How It Pays','What\u2019s Inside','Accountability & Support','Refund Guarantee','Choose Your Path','Student Results','More Results','Investment','Enrol Now'];
+const allTitles=['Cover','The Mission','Student Proof','Program Milestones','Today - Month 2','Month 2 - Month 4','Month 4 - Month 6','Who This Is For','Can You See Yourself','How It Pays','What\u2019s Inside','1:1 Access','Refund Guarantee','Choose Your Path','Student Results','More Results','Investment','Enrol Now'];
 
 const ORGANIC_TEXT={
   tonightEyebrow:'THE CORE MECHANICS'
