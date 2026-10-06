@@ -315,8 +315,10 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
 .ph-shot-pair{max-width:none;display:grid;grid-template-columns:1fr 1fr;gap:.8rem;align-items:start}
 .ph-shot-pair .proofcard{height:auto}
 .ph-shot .pn-sub{color:var(--accent);font-size:.8rem;font-weight:600;margin-top:.1rem}
-.enrol-chart{margin-top:0;margin-bottom:1.6rem}
-.enrol-chart .gr-card{max-width:none}
+.enrol-top{max-width:720px}
+.enrol-chart{margin-top:2.2rem}
+.enrol-chart .gr-card{max-width:none;padding:1rem 1rem .7rem}
+.enrol-chart .gr-svg{width:100%;height:min(56vh,520px)}
 .proofintro{color:var(--muted);max-width:62ch;margin-top:.8rem;font-size:.98rem;line-height:1.5}
 .proofmasonry{column-count:4;column-gap:.8rem;margin-top:1.3rem}
 .proofcard{break-inside:avoid;margin-bottom:.8rem;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0e0e10;box-shadow:0 6px 18px rgba(0,0,0,.08)}
@@ -629,8 +631,8 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
 
   <!-- 14 -->
   <section class="slide" id="s14" data-label="ENROL NOW">
-    <div class="wrap split top">
-      <div>
+    <div class="wrap">
+      <div class="enrol-top">
         <div class="eyebrow dot mono">YOUR SPOT IS OPEN</div>
         <h2 class="display">Enrol now.</h2>
         <div class="timer" style="margin-top:1.8rem">FIRST-5 PRICE CLOSES IN
@@ -643,7 +645,6 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
         <div class="sub" style="font-size:.95rem" id="enrolSub">First-5 rate</div>
         <button class="btn-cta">Enrol now →</button>
       </div>
-      <div>
       <div class="growth enrol-chart"><div class="gr-kicker mono">THE 180-DAY PATH</div><div class="gr-card"><svg class="gr-svg" viewBox="0 0 800 340" role="img" aria-label="Illustrative path of views over a student's first 180 days, reaching about 100 million views by day 180"><defs><linearGradient id="grFillEnrol" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3d6bff" stop-opacity=".45"/><stop offset="100%" stop-color="#3d6bff" stop-opacity="0"/></linearGradient></defs>
           <line class="gr-grid" x1="70" y1="300" x2="760" y2="300"/><text class="gr-tick" x="58" y="304" text-anchor="end">0</text><line class="gr-grid" x1="70" y1="235" x2="760" y2="235"/><text class="gr-tick" x="58" y="239" text-anchor="end">25M</text><line class="gr-grid" x1="70" y1="170" x2="760" y2="170"/><text class="gr-tick" x="58" y="174" text-anchor="end">50M</text><line class="gr-grid" x1="70" y1="105" x2="760" y2="105"/><text class="gr-tick" x="58" y="109" text-anchor="end">75M</text><line class="gr-grid" x1="70" y1="40" x2="760" y2="40"/><text class="gr-tick" x="58" y="44" text-anchor="end">100M</text>
           <text class="gr-tick" x="58" y="20" text-anchor="end">VIEWS</text>
@@ -653,17 +654,6 @@ h1.display,h2.display{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-ser
           <g class="gr-call gr-d1" style="animation-delay:1.10s"><line class="gr-lead" x1="185" y1="296" x2="200" y2="246"/><rect x="86" y="200" width="128" height="46" rx="8"/><text class="gr-day" x="97" y="217">DAY 30</text><text class="gr-lbl" x="97" y="235">Escaped Video Jail</text></g><g class="gr-call gr-d2" style="animation-delay:1.55s"><line class="gr-lead" x1="300" y1="277" x2="300" y2="196"/><rect x="190" y="150" width="128" height="46" rx="8"/><text class="gr-day" x="201" y="167">DAY 60</text><text class="gr-lbl" x="201" y="185">Monetized</text></g><g class="gr-call gr-d3" style="animation-delay:2.00s"><line class="gr-lead" x1="415" y1="235" x2="415" y2="146"/><rect x="330" y="100" width="128" height="46" rx="8"/><text class="gr-day" x="341" y="117">DAY 90</text><text class="gr-lbl" x="341" y="135">$5K / month</text></g><g class="gr-call gr-d4" style="animation-delay:2.45s"><line class="gr-lead" x1="530" y1="183" x2="530" y2="96"/><rect x="470" y="50" width="128" height="46" rx="8"/><text class="gr-day" x="481" y="67">DAY 120</text><text class="gr-lbl" x="481" y="85">$10K / month</text></g><g class="gr-call gr-d5" style="animation-delay:2.90s"><line class="gr-lead" x1="645" y1="118" x2="645" y2="170"/><rect x="600" y="170" width="128" height="46" rx="8"/><text class="gr-day" x="611" y="187">DAY 150</text><text class="gr-lbl" x="611" y="205">Second Channel</text></g><g class="gr-call gr-d6" style="animation-delay:3.35s"><line class="gr-lead" x1="760" y1="40" x2="734" y2="54"/><rect x="606" y="8" width="128" height="46" rx="8"/><text class="gr-day" x="617" y="25">DAY 180</text><text class="gr-lbl" x="617" y="43">$15–20K / month</text></g>
           <text class="gr-x" x="70" y="326" text-anchor="middle">Day 0</text><text class="gr-x" x="185" y="326" text-anchor="middle">Day 30</text><text class="gr-x" x="300" y="326" text-anchor="middle">Day 60</text><text class="gr-x" x="415" y="326" text-anchor="middle">Day 90</text><text class="gr-x" x="530" y="326" text-anchor="middle">Day 120</text><text class="gr-x" x="645" y="326" text-anchor="middle">Day 150</text><text class="gr-x" x="760" y="326" text-anchor="middle">Day 180</text>
         </svg><p class="gr-foot">Illustrative path based on what our students have done. Results vary with your topic, consistency and effort.</p></div></div>
-        <div class="incl">
-          <div class="ihead">WHAT'S INCLUDED</div>
-          <div class="iline"><div><h5>Winning Niche &amp; Channel, Done For You</h5><p>Your niche picked and channel built for you.</p></div><div class="iv">$2,000</div></div>
-          <div class="iline"><div><h5>The 100 Winning Shorts Cheat Sheet</h5><p>100 proven Shorts, broken down so you know exactly what to make.</p></div><div class="iv">$5,000</div></div>
-          <div class="iline"><div><h5>Trained To Monetize, Or Go Hands-Off</h5><p>Edit it yourself, or we place a proven editor in for you.</p></div><div class="iv">$8,000</div></div>
-          <div class="iline"><div><h5>Weekly 1:1 Support &amp; Reviews</h5><p>What's working, what to fix, and your next move.</p></div><div class="iv">$5,000</div></div>
-          <div class="iline"><div><h5>Direct Contact With Alex</h5><p>Message me 7 days a week for unlimited feedback.</p></div><div class="iv">$5,000</div></div>
-          <div class="iline total"><div class="tk">TOTAL VALUE</div><div class="iv">$25,000</div></div>
-          <div class="iline obj"><div class="tk">OBJECTIVE</div><div class="iv">An extra $5k–$10k/month</div></div>
-        </div>
-      </div>
     </div>
   </section>
 
